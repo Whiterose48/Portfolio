@@ -77,6 +77,8 @@
             pointer-events: none;
             z-index: -1;
             overflow: hidden;
+            will-change: transform;
+            contain: layout style paint;
         }
 
         /* Floating Particles */
@@ -298,37 +300,119 @@
             }
         }
 
-        /* Ultra performance mode */
-        @media (max-width: 768px) {
-
-            /* Disable expensive effects */
-            .hero h1,
-            .hero .subtitle,
-            .hero-stats {
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                background-color: rgba(0, 0, 0, 0.5) !important;
-                box-shadow: none !important;
-            }
-
-            /* Simplify gradients */
-            .gradient-frame::before {
-                display: none;
-            }
-
-            /* Disable AOS animations on mobile */
-            [data-aos] {
-                transform: none !important;
-                opacity: 1 !important;
-            }
+        /* ===== ENHANCED MOBILE & TABLET RESPONSIVE ===== */
+        
+        /* Tablet Optimizations */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .nav-container { padding: 0 1.5rem; }
+            .hero-title { font-size: 3rem; }
+            .hero-subtitle { font-size: 1.3rem; }
+            .experience-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .skills-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .contact-grid { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; max-width: 500px; }
+            .contact-icon { width: 100px; height: 100px; font-size: 2.5rem; }
         }
 
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            nav { padding: 0.8rem 1rem; }
+            .nav-container { flex-wrap: wrap; }
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); flex-direction: column; padding: 1rem; margin: 0; border-radius: 0 0 15px 15px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+            .nav-links.active { display: flex; animation: slideDown 0.3s ease; }
+            .nav-links a { padding: 0.8rem 1rem; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+            .nav-links a:last-child { border-bottom: none; }
+            .mobile-menu { display: flex; }
+            
+            .hero-title { font-size: 2.5rem; line-height: 1.2; margin-bottom: 1rem; }
+            .hero-subtitle { font-size: 1.1rem; margin-bottom: 1.5rem; }
+            .hero-description { font-size: 0.95rem; margin-bottom: 2rem; }
+            .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            
+            .experience-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .experience-card { min-height: auto; }
+            .experience-image { width: 100%; max-width: 280px; height: 160px; }
+            
+            .skills-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .soft-skill-grid { gap: 1rem; }
+            .soft-skill-item { padding: 1rem; gap: 0.8rem; }
+            .soft-skill-icon { width: 50px; font-size: 1.5rem; }
+            
+            .contact-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 350px; }
+            .contact-icon { width: 70px; height: 70px; font-size: 1.8rem; margin-bottom: 0.8rem; }
+            .contact-item { font-size: 0.9rem; }
+            
+            .section { padding: 3rem 1rem; }
+            .section-title { font-size: 2rem; margin-bottom: 2rem; }
+            
+            /* Disable AOS animations on mobile */
+            [data-aos] { transform: none !important; opacity: 1 !important; transition: none !important; }
+            
+            /* Performance optimizations for mobile */
+            .hero h1, .hero .subtitle, .hero-stats { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background-color: rgba(0, 0, 0, 0.5) !important; box-shadow: none !important; }
+            .gradient-frame::before { display: none; }
+            .background-animation { display: none; }
+            .hero { min-height: 70vh; padding: 3rem 1rem; }
+        }
+
+        /* Extra Small Mobile */
+        @media (max-width: 480px) {
+            .hero-title { font-size: 2rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .hero-description { font-size: 0.9rem; }
+            .hero-stats { grid-template-columns: 1fr; gap: 0.8rem; text-align: center; }
+            .contact-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .contact-icon { width: 60px; height: 60px; font-size: 1.5rem; }
+            .soft-skill-item { flex-direction: column; text-align: center; }
+            .soft-skill-icon { margin-bottom: 0.5rem; }
+            .experience-image { height: 140px; }
+        }
+
+        /* Landscape Mobile */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .hero { min-height: 100vh; padding: 2rem 1rem; }
+            .hero-title { font-size: 2.2rem; }
+            .hero-stats { grid-template-columns: repeat(4, 1fr); gap: 0.8rem; }
+        }
+
+        /* Touch-friendly animations */
+        @keyframes slideDown { 0% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes mobileFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        
+        @media (hover: hover) {
+            .contact-icon:hover { animation: mobileFloat 1s ease-in-out infinite; }
+            .experience-card:hover { transform: translateY(-3px); }
+        }
+
+        /* Performance optimizations for different device types */
+        .low-performance * {
+            animation-duration: 0.2s !important;
+            transition-duration: 0.2s !important;
+        }
+
+        .low-performance .background-animation {
+            display: none !important;
+        }
+
+        .low-performance [data-aos] {
+            transform: none !important;
+            opacity: 1 !important;
+        }
+
+        /* Reduced motion preferences */
         @media (prefers-reduced-motion: reduce) {
             .background-animation * {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
+        }
+
+        .reduced-motion *,
+        .reduced-motion *::before,
+        .reduced-motion *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
         }
 
         /* --- 1. FIXED CURSOR ANIMATION --- */
@@ -558,7 +642,7 @@
         /* --- All old frames like .profile-frame, .timeline-image-frame, etc. are DELETED --- */
 
 
-        /* Navigation (Unchanged) */
+        /* Navigation (Performance Optimized) */
         nav {
             position: fixed;
             top: 0;
@@ -569,6 +653,15 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000;
             transition: all 0.3s ease;
+            will-change: transform, background-color;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        nav.nav-hidden {
+            transform: translateY(-100%);
         }
 
         .nav-container {
@@ -644,8 +737,21 @@
             height: 3px;
             background: var(--text-primary);
             margin: 3px 0;
-            transition: 0.3s;
+            transition: all 0.3s ease;
             border-radius: 2px;
+            transform-origin: center;
+        }
+
+        .mobile-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .mobile-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
         }
 
         .mobile-nav {
@@ -2287,7 +2393,6 @@
         .experience-body {
             padding: 0 1rem 1rem;
         }
-        }
 
         /* Animations (Unchanged) */
         .fade-in {
@@ -3345,10 +3450,17 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        // Mobile menu toggle
+        // Enhanced mobile menu toggle
         function toggleMobileMenu() {
             const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.toggle('active');
+            const mobileMenuBtn = document.querySelector('.mobile-menu');
+            
+            if (mobileNav) {
+                mobileNav.classList.toggle('active');
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.classList.toggle('active');
+                }
+            }
         }
 
         // Smooth scrolling for navigation links
@@ -3385,35 +3497,41 @@
         }
 
 
-        // Responsive Navigation Behavior
+        // Optimized Navigation Behavior with throttling
         let lastScrollY = 0;
-        window.addEventListener('scroll', () => {
+        let scrollTimeout;
+        
+        const handleScroll = () => {
             const nav = document.querySelector('nav');
             if (!nav) return;
 
             const currentScrollY = window.scrollY;
 
-            // Background opacity based on scroll with blur glass effect
-            if (currentScrollY > 100) {
-                nav.style.background = 'rgba(255, 255, 255, 0.08)';
-            } else {
-                nav.style.background = 'rgba(255, 255, 255, 0.05)';
-            }
+            // Use CSS classes instead of direct style manipulation for better performance
+            nav.classList.toggle('scrolled', currentScrollY > 100);
 
             // Hide/show nav on mobile when scrolling
             if (window.innerWidth <= 768) {
                 if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                    // Scrolling down
-                    nav.style.transform = 'translateY(-100%)';
+                    nav.classList.add('nav-hidden');
                 } else {
-                    // Scrolling up
-                    nav.style.transform = 'translateY(0)';
+                    nav.classList.remove('nav-hidden');
                 }
             } else {
-                nav.style.transform = 'translateY(0)';
+                nav.classList.remove('nav-hidden');
             }
 
             lastScrollY = currentScrollY;
+        };
+
+        // Throttled scroll event for better performance
+        window.addEventListener('scroll', () => {
+            if (!scrollTimeout) {
+                scrollTimeout = requestAnimationFrame(() => {
+                    handleScroll();
+                    scrollTimeout = null;
+                });
+            }
         }, { passive: true });
 
         // Close mobile menu when clicking outside
@@ -3426,12 +3544,20 @@
             }
         });
 
-        // Responsive Window Resize Handler
+        // Optimized Responsive Window Resize Handler
         let resizeTimeout;
+        let previousWidth = window.innerWidth;
+        
         window.addEventListener('resize', () => {
+            const currentWidth = window.innerWidth;
+            
+            // Only process resize if width actually changed (ignore mobile viewport changes)
+            if (Math.abs(currentWidth - previousWidth) < 20) return;
+            
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
                 const windowWidth = window.innerWidth;
+                previousWidth = windowWidth;
 
                 // Update typing speed based on screen size
                 if (windowWidth <= 768) {
@@ -3451,18 +3577,17 @@
                         mobileNav.classList.remove('active');
                     }
 
-                    // Reset nav transform
                     const nav = document.querySelector('nav');
                     if (nav) {
-                        nav.style.transform = 'translateY(0)';
+                        nav.classList.remove('nav-hidden');
                     }
                 }
 
                 // Update grid layouts dynamically
                 updateResponsiveLayouts();
 
-            }, 250); // Debounce resize events
-        });
+            }, 150); // Reduced debounce time for better responsiveness
+        }, { passive: true });
 
         // Update layouts based on screen size
         function updateResponsiveLayouts() {
@@ -3516,10 +3641,41 @@
         // Initialize device detection
         const device = detectDevice();
 
-        // Handle orientation change
+        // Performance monitoring system
+        const performanceMonitor = {
+            startTime: performance.now(),
+            
+            checkPerformance() {
+                const currentTime = performance.now();
+                const loadTime = currentTime - this.startTime;
+                
+                if (loadTime > 3000) {
+                    console.warn('Portfolio loading time exceeded 3 seconds');
+                    document.body.classList.add('reduced-motion');
+                }
+            },
+
+            optimizeForDevice() {
+                const isMobile = window.innerWidth <= 768;
+                const isLowEnd = navigator.hardwareConcurrency <= 2;
+                
+                if (isMobile || isLowEnd) {
+                    document.body.classList.add('low-performance');
+                    
+                    // Disable background animations on low-end devices
+                    const bgAnimation = document.querySelector('.background-animation');
+                    if (bgAnimation && isLowEnd) {
+                        bgAnimation.style.display = 'none';
+                    }
+                }
+            }
+        };
+
+        // Handle orientation change with performance optimization
         window.addEventListener('orientationchange', () => {
             setTimeout(() => {
                 updateResponsiveLayouts();
+                performanceMonitor.optimizeForDevice();
 
                 // Recalculate viewport height for mobile
                 if (device.isMobile) {
@@ -3535,6 +3691,12 @@
 
             // Initialize layouts
             updateResponsiveLayouts();
+
+            // Initialize performance monitoring
+            setTimeout(() => {
+                performanceMonitor.checkPerformance();
+                performanceMonitor.optimizeForDevice();
+            }, 1000);
 
             // Add intersection observer for performance
             if ('IntersectionObserver' in window) {
@@ -3866,17 +4028,16 @@
             }
         }
 
-        // Mouse interaction with background
+        // Optimized mouse interaction with background
         function initBackgroundInteraction() {
+            if (window.innerWidth <= 768) return; // Skip on mobile for performance
+
             const backgroundAnimation = document.querySelector('.background-animation');
             let mouseX = 0;
             let mouseY = 0;
+            let animationFrame;
 
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-
-                // Create mouse-following glow effect
+            const updateBackground = () => {
                 const glowIntensity = 0.1;
                 const moveX = (mouseX / window.innerWidth - 0.5) * 20;
                 const moveY = (mouseY / window.innerHeight - 0.5) * 20;
@@ -3884,6 +4045,19 @@
                 const gradientWaves = document.querySelector('.gradient-waves');
                 if (gradientWaves) {
                     gradientWaves.style.transform = `translate(${-25 + moveX}%, ${-25 + moveY}%) rotate(0deg)`;
+                }
+            };
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                // Use RAF for smooth animation
+                if (!animationFrame) {
+                    animationFrame = requestAnimationFrame(() => {
+                        updateBackground();
+                        animationFrame = null;
+                    });
                 }
             });
         }
