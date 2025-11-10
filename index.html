@@ -1764,6 +1764,9 @@
             align-items: center;
             gap: 1.2rem;
             width: 100%;
+            /* entrance state for animation */
+            opacity: 0;
+            transform: translateY(12px);
         }
 
         .soft-skill-item::before {
@@ -1786,6 +1789,42 @@
             border-color: var(--secondary-color);
             box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
         }
+
+        /* Triggered when soft-skill items become visible */
+        .soft-skill-item.animate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition: transform 360ms cubic-bezier(.2,.8,.2,1), opacity 360ms ease;
+        }
+
+        .soft-skill-item.animate::before {
+            left: 100%;
+        }
+
+        /* Color variants for skill items (distinct colors per card) */
+        .soft-skill-item.variant-1 { border-color: rgba(108,99,255,0.16); }
+        .soft-skill-item.variant-1 .soft-skill-icon { background: linear-gradient(90deg,#6c63ff,#9b7bff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+        .soft-skill-item.variant-2 { border-color: rgba(255,107,107,0.16); }
+        .soft-skill-item.variant-2 .soft-skill-icon { background: linear-gradient(90deg,#ff6b6b,#ff8a8a); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+        .soft-skill-item.variant-3 { border-color: rgba(46,213,115,0.12); }
+        .soft-skill-item.variant-3 .soft-skill-icon { background: linear-gradient(90deg,#2ed573,#66e07b); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+        .soft-skill-item.variant-4 { border-color: rgba(255,159,67,0.14); }
+        .soft-skill-item.variant-4 .soft-skill-icon { background: linear-gradient(90deg,#ff9f43,#ffc58f); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+        .soft-skill-item.variant-5 { border-color: rgba(0,200,255,0.12); }
+        .soft-skill-item.variant-5 .soft-skill-icon { background: linear-gradient(90deg,#00c8ff,#6fe6ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+        .soft-skill-item.variant-6 { border-color: rgba(255,200,0,0.12); }
+        .soft-skill-item.variant-6 .soft-skill-icon { background: linear-gradient(90deg,#ffd300,#fff06a); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+        .soft-skill-item.variant-7 { border-color: rgba(185,102,255,0.12); }
+        .soft-skill-item.variant-7 .soft-skill-icon { background: linear-gradient(90deg,#b966ff,#d29bff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+        .soft-skill-item.variant-8 { border-color: rgba(120,200,150,0.12); }
+        .soft-skill-item.variant-8 .soft-skill-icon { background: linear-gradient(90deg,#78c896,#b9f3c3); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
 
         .soft-skill-icon {
             font-size: 2rem;
@@ -2856,230 +2895,11 @@
         <div class="skills-grid">
             <div class="card skill-category technical-skills" data-aos="fade-up" data-aos-delay="100">
                 <h3>Technical Skills</h3>
-                <div class="skill-progress-list">
-                    <div class="skill-progress-item" data-percentage="90">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fab fa-python skill-progress-icon"></i>
-                                Python
-                            </div>
-                            <div class="skill-progress-percentage">90%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 90%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-progress-item" data-percentage="85">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fas fa-copyright skill-progress-icon"></i>
-                                C
-                            </div>
-                            <div class="skill-progress-percentage">85%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 85%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-progress-item" data-percentage="85">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fab fa-html5 skill-progress-icon"></i>
-                                HTML/CSS
-                            </div>
-                            <div class="skill-progress-percentage">90%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 90%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-progress-item" data-percentage="80">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fab fa-js-square skill-progress-icon"></i>
-                                JavaScript
-                            </div>
-                            <div class="skill-progress-percentage">80%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 80%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-progress-item" data-percentage="80">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fab fa-react skill-progress-icon"></i>
-                                React.Js, Svelete, Tailwind
-                            </div>
-                            <div class="skill-progress-percentage">35%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 35%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-progress-item" data-percentage="88">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fas fa-database skill-progress-icon"></i>
-                                MySQL, PostgresSQL
-                            </div>
-                            <div class="skill-progress-percentage">88%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 88%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-progress-item" data-percentage="75">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fas fa-database skill-progress-icon"></i>
-                                MongoDB, Cassandra, GraphDB
-                            </div>
-                            <div class="skill-progress-percentage">75%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 75%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-progress-item" data-percentage="70">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fab fa-docker skill-progress-icon"></i>
-                                Docker, AirFlow, AirByte, Nifi, DBT, GX
-                            </div>
-                            <div class="skill-progress-percentage">85%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 85%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-progress-item" data-percentage="85">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fas fa-brain skill-progress-icon"></i>
-                                Machine Learning
-                            </div>
-                            <div class="skill-progress-percentage">85%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 85%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-progress-item" data-percentage="85">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fas fa-chart-bar skill-progress-icon"></i>
-                                PowerBI, Tableau
-                            </div>
-                            <div class="skill-progress-percentage">85%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 85%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-progress-item" data-percentage="85">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fab fa-google skill-progress-icon"></i>
-                                Google Colab, Kaggle
-                            </div>
-                            <div class="skill-progress-percentage">100%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 100%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-progress-item" data-percentage="85">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fab fa-aws skill-progress-icon"></i>
-                                Amazon Web Services (AWS)
-                            </div>
-                            <div class="skill-progress-percentage">70%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 70%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-progress-item" data-percentage="85">
-                        <div class="skill-progress-header">
-                            <div class="skill-progress-name">
-                                <i class="fas fa-shield-alt skill-progress-icon"></i>
-                                Cyber Security, Network
-                            </div>
-                            <div class="skill-progress-percentage">40%</div>
-                        </div>
-                        <div class="skill-progress-bar">
-                            <div class="skill-progress-fill" style="--progress-width: 40%"></div>
-                        </div>
-                    </div>
-                </div>
+                <div id="techSkillsContainer" class="soft-skill-grid"></div>
             </div>
             <div class="card skill-category soft-skills" data-aos="fade-up" data-aos-delay="200">
                 <h3>Soft Skills</h3>
-                <div class="soft-skill-grid">
-                    <div class="soft-skill-item" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fas fa-users soft-skill-icon"></i>
-                        <div class="soft-skill-content">
-                            <div class="soft-skill-name">Teamwork</div>
-                            <div class="soft-skill-desc">Collaborate effectively with diverse teams</div>
-                        </div>
-                    </div>
-                    <div class="soft-skill-item" data-aos="fade-up" data-aos-delay="120">
-                        <i class="fas fa-lightbulb soft-skill-icon"></i>
-                        <div class="soft-skill-content">
-                            <div class="soft-skill-name">Problem Solving</div>
-                            <div class="soft-skill-desc">Creative solutions to complex challenges</div>
-                        </div>
-                    </div>
-                    <div class="soft-skill-item" data-aos="fade-up" data-aos-delay="140">
-                        <i class="fas fa-comments soft-skill-icon"></i>
-                        <div class="soft-skill-content">
-                            <div class="soft-skill-name">Communication</div>
-                            <div class="soft-skill-desc">Clear and effective communication</div>
-                        </div>
-                    </div>
-                    <div class="soft-skill-item" data-aos="fade-up" data-aos-delay="160">
-                        <i class="fas fa-clock soft-skill-icon"></i>
-                        <div class="soft-skill-content">
-                            <div class="soft-skill-name">Time Management</div>
-                            <div class="soft-skill-desc">Efficient project planning and execution</div>
-                        </div>
-                    </div>
-                    <div class="soft-skill-item" data-aos="fade-up" data-aos-delay="180">
-                        <i class="fas fa-crown soft-skill-icon"></i>
-                        <div class="soft-skill-content">
-                            <div class="soft-skill-name">Leadership</div>
-                            <div class="soft-skill-desc">Guide and inspire team members</div>
-                        </div>
-                    </div>
-                    <div class="soft-skill-item" data-aos="fade-up" data-aos-delay="200">
-                        <i class="fas fa-sync-alt soft-skill-icon"></i>
-                        <div class="soft-skill-content">
-                            <div class="soft-skill-name">Adaptability</div>
-                            <div class="soft-skill-desc">Flexible approach to changing requirements</div>
-                        </div>
-                    </div>
-                    <div class="soft-skill-item" data-aos="fade-up" data-aos-delay="220">
-                        <i class="fas fa-brain soft-skill-icon"></i>
-                        <div class="soft-skill-content">
-                            <div class="soft-skill-name">Critical Thinking</div>
-                            <div class="soft-skill-desc">Analyze complex problems and make informed decisions</div>
-                        </div>
-                    </div>
-                </div>
+                <div id="softSkillsContainer" class="soft-skill-grid"></div>
             </div>
         </div>
     </section>
@@ -3692,6 +3512,66 @@
             // Initialize layouts
             updateResponsiveLayouts();
 
+            // --- Component renderer: inject skill cards (keeps HTML minimal and re-usable) ---
+            (function renderSkillComponents(){
+                const techSkills = [
+                    { icon: 'fab fa-python', name: 'Python', desc: 'Scripting, data processing, automation' },
+                    { icon: 'fas fa-code', name: 'C', desc: 'Low-level programming and systems' },
+                    { icon: 'fab fa-html5', name: 'HTML / CSS', desc: 'Responsive layouts and visual design' },
+                    { icon: 'fab fa-js-square', name: 'JavaScript', desc: 'Interactive UI and client-side logic' },
+                    { icon: 'fab fa-react', name: 'React / Svelte / Tailwind', desc: 'Modern frameworks and utility-first CSS' },
+                    { icon: 'fas fa-database', name: 'Databases', desc: 'MySQL, PostgreSQL, MongoDB' },
+                    { icon: 'fab fa-docker', name: 'DevOps & Containers', desc: 'Docker, Airflow, DBT, orchestration' },
+                    { icon: 'fas fa-brain', name: 'Machine Learning', desc: 'Modeling and evaluation workflows' },
+                    { icon: 'fas fa-chart-bar', name: 'Analytics', desc: 'PowerBI, Tableau and visualization' },
+                    { icon: 'fab fa-google', name: 'Google Colab / Kaggle', desc: 'Experimentation and notebooks' },
+                    { icon: 'fab fa-aws', name: 'AWS', desc: 'Cloud services and deployment' },
+                    { icon: 'fas fa-shield-alt', name: 'Cyber Security', desc: 'Network fundamentals and security basics' }
+                ];
+
+                const softSkills = [
+                    { icon: 'fas fa-users', name: 'Teamwork', desc: 'Collaborate effectively with diverse teams' },
+                    { icon: 'fas fa-lightbulb', name: 'Problem Solving', desc: 'Creative solutions to complex challenges' },
+                    { icon: 'fas fa-comments', name: 'Communication', desc: 'Clear and effective communication' },
+                    { icon: 'fas fa-clock', name: 'Time Management', desc: 'Efficient project planning and execution' },
+                    { icon: 'fas fa-crown', name: 'Leadership', desc: 'Guide and inspire team members' },
+                    { icon: 'fas fa-sync-alt', name: 'Adaptability', desc: 'Flexible approach to changing requirements' },
+                    { icon: 'fas fa-brain', name: 'Critical Thinking', desc: 'Analyze complex problems and make informed decisions' }
+                ];
+
+                const variants = ['variant-1','variant-2','variant-3','variant-4','variant-5','variant-6','variant-7','variant-8'];
+
+                function createSkillEl(skill, index){
+                    const item = document.createElement('div');
+                    item.className = 'soft-skill-item ' + variants[index % variants.length];
+                    item.setAttribute('data-aos','fade-up');
+                    item.setAttribute('data-aos-delay', 100 + index * 20);
+
+                    const icon = document.createElement('i');
+                    icon.className = skill.icon + ' soft-skill-icon';
+
+                    const content = document.createElement('div');
+                    content.className = 'soft-skill-content';
+                    content.innerHTML = '<div class="soft-skill-name">'+skill.name+'</div><div class="soft-skill-desc">'+skill.desc+'</div>';
+
+                    item.appendChild(icon);
+                    item.appendChild(content);
+                    return item;
+                }
+
+                function renderList(containerId, list){
+                    const container = document.getElementById(containerId);
+                    if (!container) return;
+                    const frag = document.createDocumentFragment();
+                    list.forEach((s,i)=>frag.appendChild(createSkillEl(s,i)));
+                    container.appendChild(frag);
+                }
+
+                // Render components synchronously so observers pick them up
+                renderList('techSkillsContainer', techSkills);
+                renderList('softSkillsContainer', softSkills);
+            })();
+
             // Initialize performance monitoring
             setTimeout(() => {
                 performanceMonitor.checkPerformance();
@@ -3700,7 +3580,7 @@
 
             // Add intersection observer for performance
             if ('IntersectionObserver' in window) {
-                const lazyElements = document.querySelectorAll('.card, .skill-progress-item');
+                const lazyElements = document.querySelectorAll('.card, .soft-skill-item');
                 const lazyObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -3782,21 +3662,22 @@
             });
         });
 
-        // Optimized Progress Bar Animation
+        // Animate soft-skill items (technical skills now share soft-skill layout)
         function animateProgressBars() {
-            const progressItems = document.querySelectorAll('.skill-progress-item');
+            const items = document.querySelectorAll('.soft-skill-item');
 
-            if (window.innerWidth <= 768) {
-                // Instant animation on mobile
-                progressItems.forEach(item => item.classList.add('animate'));
-            } else {
-                // Reduced stagger on desktop
-                progressItems.forEach((item, index) => {
-                    setTimeout(() => {
-                        item.classList.add('animate');
-                    }, index * 50);
-                });
-            }
+            if (!items || items.length === 0) return;
+
+            const stagger = window.innerWidth <= 768 ? 0 : 50;
+
+            items.forEach((item, i) => {
+                const delay = i * stagger;
+                if (delay === 0) {
+                    item.classList.add('animate');
+                } else {
+                    setTimeout(() => item.classList.add('animate'), delay);
+                }
+            });
         }
 
         // Simplified skills observer
