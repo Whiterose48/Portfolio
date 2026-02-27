@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&family=Geo:ital@0;1&family=Nabla&display=swap');
 @import "tailwindcss";
 
 /* ===== Theme ===== */
@@ -18,7 +18,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: "Geo", sans-serif;
   background: #030014;
   color: #e0e0e0;
   line-height: 1.7;
@@ -177,13 +177,17 @@ body {
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-family: "Geo", sans-serif;
+  font-weight: 400;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 /* ===== Mono Text ===== */
-.font-mono { font-family: 'JetBrains Mono', monospace; }
+.font-mono { 
+  font-family: "Geo", sans-serif; 
+  font-style: italic; 
+}
 
 /* ===== Loading ===== */
 .loading-screen {
@@ -232,3 +236,37 @@ body {
   .glass { backdrop-filter: blur(10px); }
 }
 
+/* ===== Custom Display Fonts ===== */
+.font-nabla {
+  font-family: "Nabla", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "EDPT" 100,
+    "EHLT" 12;
+}
+
+.geo-regular {
+  font-family: "Geo", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.geo-regular-italic {
+  font-family: "Geo", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.charmonman-regular {
+  font-family: "Charmonman", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.charmonman-bold {
+  font-family: "Charmonman", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
