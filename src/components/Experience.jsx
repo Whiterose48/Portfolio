@@ -1,46 +1,105 @@
+import { motion } from 'framer-motion';
 import { experiences } from '../data/portfolioData';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.6, ease: 'easeOut' },
+  }),
+};
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-12 md:py-20 px-4 md:px-8 max-w-[1400px] mx-auto">
-      <h2 className="text-center text-3xl md:text-4xl lg:text-5xl font-bold mb-12 relative">
-        <span className="gradient-text-primary">Experience</span>
-        <div className="section-title-underline gradient-bg-accent" />
-      </h2>
+    <section id="experience" className="relative py-32 overflow-hidden">
+      <div className="grid-bg absolute inset-0 pointer-events-none" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-        {experiences.map((exp, i) => (
-          <div
-            key={i}
-            className="group relative bg-white/8 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden min-h-[380px] md:min-h-[420px] flex flex-col transition-all duration-200 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_35px_60px_-12px_rgba(0,0,0,0.5)] hover:border-cyan-400"
-          >
-            {/* Top accent bar */}
-            <div className="experience-top-bar" />
-
-            {/* Header */}
-            <div className="relative p-4 md:p-5 pb-3 text-center flex flex-col items-center justify-center">
-              <div className="gradient-frame w-full max-w-[300px] md:max-w-[350px] h-[160px] md:h-[200px] mb-4 transition-transform duration-200 group-hover:scale-105 group-hover:rotate-1">
-                <img src={exp.img} alt={exp.alt} className="w-full h-full object-cover" />
-              </div>
-              <span className="inline-block gradient-bg-primary text-[#0a0a0a] px-3 py-1 rounded-full font-semibold text-xs uppercase tracking-wider mb-3 shadow-[0_3px_10px_rgba(0,245,255,0.2)]">
-                {exp.period}
-              </span>
-              <h3 className="text-lg md:text-xl font-bold gradient-text-accent leading-tight text-center mb-1">
-                {exp.role}
-              </h3>
-              <div className="text-[#ff6b35] font-semibold text-sm md:text-base text-center mb-3">
-                {exp.company}
-              </div>
-            </div>
-
-            {/* Body */}
-            <div className="px-4 md:px-5 pb-4 md:pb-5 mt-auto flex-1 flex flex-col justify-between">
-              <p className="text-gray-400 leading-relaxed text-sm text-left break-words hyphens-auto">
-                {exp.desc}
-              </p>
-            </div>
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        {/* Section label */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUp}
+          className="mb-16"
+        >
+          <div className="flex items-center gap-3 mb-3">
+            <span className="w-8 h-[1px] bg-[#a855f7]" />
+            <span className="text-[#a855f7] text-xs font-mono uppercase tracking-[0.3em]">./ experience_log</span>
           </div>
-        ))}
+          <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
+            Milestones &<br />
+            <span className="text-gradient-purple">Experience</span>
+          </h2>
+        </motion.div>
+
+        {/* Timeline */}
+        <div className="relative">
+          {/* Vertical line */}
+          <div className="hidden md:block absolute left-[50%] top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#a855f7]/30 via-[#4facfe]/30 to-transparent" />
+
+          <div className="space-y-8 md:space-y-12">
+            {experiences.map((exp, i) => {
+              const isLeft = i % 2 === 0;
+
+              return (
+                <motion.div
+                  key={i}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  custom={i}
+                  variants={fadeUp}
+                  className={`flex flex-col md:flex-row items-center gap-6 ${
+                    isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
+                  }`}
+                >
+                  {/* Content side */}
+                  <div className={`w-full md:w-[45%] ${isLeft ? 'md:text-right' : 'md:text-left'}`}>
+                    <div className="glass glass-hover rounded-2xl p-6 group">
+                      {/* Period badge */}
+                      <div className={`flex ${isLeft ? 'md:justify-end' : 'md:justify-start'} mb-3`}>
+                        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-[#a855f7]/10 text-[#a855f7] border border-[#a855f7]/20">
+                          <i className="fas fa-calendar-alt text-[8px]" />
+                          {exp.period}
+                        </span>
+                      </div>
+
+                      <h3 className="text-white text-lg font-semibold mb-1">{exp.role}</h3>
+                      <div className="text-[#4facfe] text-sm font-mono mb-3">{exp.company}</div>
+                      <p className="text-white/40 text-sm leading-relaxed mb-4">{exp.desc}</p>
+
+                      {/* Skills */}
+                      <div className={`flex flex-wrap gap-2 ${isLeft ? 'md:justify-end' : 'md:justify-start'}`}>
+                        {exp.skills.map((s, j) => (
+                          <span key={j} className="tag text-[10px]">{s}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Center dot */}
+                  <div className="hidden md:flex items-center justify-center w-[10%]">
+                    <div className="w-3 h-3 rounded-full bg-gradient-to-br from-[#a855f7] to-[#4facfe] ring-4 ring-[#030014] z-10" />
+                  </div>
+
+                  {/* Image side */}
+                  <div className={`w-full md:w-[45%] ${isLeft ? 'md:text-left' : 'md:text-right'}`}>
+                    <div className="glass rounded-xl overflow-hidden max-w-[280px] mx-auto md:mx-0 group">
+                      <img
+                        src={exp.img}
+                        alt={exp.role}
+                        className="w-full h-40 object-cover transition-transform duration-700 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );
